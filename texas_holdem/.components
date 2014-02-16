@@ -1,0 +1,9 @@
+---
+:orm: mongoid
+:test: rspec
+:mock: none
+:script: jquery
+:renderer: erb
+:stylesheet: none
+:namespace: TexasHoldem
+:migration_format: number
