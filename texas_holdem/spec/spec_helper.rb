@@ -1,4 +1,5 @@
 require_relative '../app/models/card'
+require_relative '../app/models/player'
 
 RACK_ENV = 'test' unless defined?(RACK_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")

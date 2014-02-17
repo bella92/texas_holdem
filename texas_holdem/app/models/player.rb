@@ -1,7 +1,7 @@
 class Player
   attr_accessor :name, :pocket, :bankroll
 
-  def initialize(name, pocket, bankroll)
+  def initialize(name)
     @name = name
     @pocket = []
     @bankroll = 1000

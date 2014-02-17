@@ -1,5 +1,5 @@
 require 'spec_helper'
- 
+
 describe Deck do
   before :each do
     @deck = Deck.new
@@ -7,12 +7,14 @@ describe Deck do
 
   describe "#new" do
     it "takes no parameters and returns a Deck object" do
-      @deck.should be_an_instance_of Deck
+      expect(@deck).to be_an_instance_of(Deck)
     end
   end
 
+  #TODO: fix this
+  #two different shuffles
   describe "#cards" do
-    it "returns the correct array of cards" do
+    it "returns the correct array of new cards" do
       @deck.cards.map { |card| card.to_s }.should eql ["2, Clubs",
                                    "2, Diamonds",
                                    "2, Hearts",
@@ -65,6 +67,36 @@ describe Deck do
                                    "A, Diamonds",
                                    "A, Hearts",
                                    "A, Spades"]
+    end
+  end
+
+  describe "#new" do
+    it "returns the correct number of new cards" do
+      expect(@deck.cards.count).to eq(52)
+    end
+  end
+
+  #test shuffle
+
+  describe "#shuffle" do
+    it "returns the correct number of shuffled cards" do
+      @deck.shuffle
+      expect(@deck.cards.count).to eq(52)
+    end
+  end
+
+  describe "#take_cards" do
+    it "returns the correct array of taken cards" do
+      last_cards = @deck.cards.last(2)
+      taken_cards = @deck.take_cards(2)
+      expect(taken_cards).to match_array(last_cards)
+    end
+  end
+
+  describe "#take_cards" do
+    it "returns the correct number of taken cards" do
+      taken_cards = @deck.take_cards(2)
+      expect(taken_cards.count).to eq(2)
     end
   end
 end

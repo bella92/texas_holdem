@@ -1,10 +1,12 @@
-class Dealer
-  attr_accessor :players, :table
+require_relative "table.rb"
 
-  def initialize(players, table)
-    @deck = Deck.new
-    @players = players
-    @table = table
+class Dealer
+  attr_accessor :deck, :board, :players
+
+  def initialize(table)
+    @deck = table.deck.shuffle
+    @board = table.board
+    @players = table.players
   end
 
   def deal_to_players
