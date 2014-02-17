@@ -5,20 +5,16 @@ describe Player do
   let(:first_card) { Card.new(10, 4) }
   let(:second_card) { Card.new(13, 2) }
 
-  describe "#name" do
-    it "returns the correct name" do
+  describe "#new" do
+    it "sets the correct name" do
       expect(player.name).to eq("My player")
     end
-  end
 
-  describe "#pocket" do
-    it "returns an empty pocket" do
+    it "sets an empty pocket" do
       expect(player.pocket).to be_empty
     end
-  end
 
-  describe "#bankroll" do
-    it "returns the default bankroll" do
+    it "sets the default bankroll" do
       expect(player.bankroll).to eq(1000)
     end
   end
@@ -40,16 +36,14 @@ describe Player do
 
   describe "#increase_bankroll" do
     it "increases the bankroll" do
-      amount = 500
-      player.increase_bankroll(amount)
+      player.increase_bankroll(500)
       expect(player.bankroll).to eq(1500)
     end
   end
 
   describe "#decrease_bankroll" do
     it "decreases the bankroll" do
-      amount = 500
-      player.decrease_bankroll(amount)
+      player.decrease_bankroll(500)
       expect(player.bankroll).to eq(500)
     end
   end

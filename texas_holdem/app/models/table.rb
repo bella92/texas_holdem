@@ -1,8 +1,7 @@
 class Table
-  attr_reader :deck, :players, :board, :pot
+  attr_reader :players, :board, :pot
 
-  def initialize()
-    @deck = Deck.new
+  def initialize
     @players = []
     @board = []
     @pot = 0

@@ -1,9 +1,10 @@
 require_relative "table.rb"
 
 class Dealer
-  attr_accessor :table
+  attr_reader :deck, :table
 
   def initialize(table)
+    @deck = Deck.new
     @table = table
   end
 
@@ -16,9 +17,8 @@ class Dealer
     end
   end
 
-  def deal_to_board(cards_count)
-    @deck.pop(1)
-    cards = deck.take_cards(cards_count)
+  def deal_to_board(count)
+    cards = @deck.take_cards(count, skip: 1)
     @table.add_cards_to_board(cards)
   end
 end

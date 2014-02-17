@@ -15,8 +15,8 @@ class Card
     @rank, @suit = rank, suit
   end
 
-  def ==(other)
-    @rank == other.rank and @suit == other.suit
+  def <=>(other)
+    @rank != other.rank ? @rank <=> other.rank : @suit <=> other.suit
   end
 
   def to_s

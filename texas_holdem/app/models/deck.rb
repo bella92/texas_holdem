@@ -4,17 +4,11 @@ class Deck
   attr_accessor :cards
 
   def initialize
-    @cards = (2..14).flat_map do |rank|
-      (1..4).map { |suit| Card.new(rank, suit) }
-    end
+    @cards = (2..14).flat_map { |rank| (1..4).map { |suit| Card.new(rank, suit) } }.shuffle!
   end
-
-  def shuffle
-    @cards.shuffle!
-  end
-
-  def take_cards(cards_count)
-    cards = @cards.pop(cards_count)
-    return cards
+  
+  def take_cards(count, skip: 0)
+    @cards.pop(skip)
+    @cards.pop(count)
   end
 end

@@ -2,30 +2,34 @@ require 'spec_helper'
  
 describe Card do
   let(:card) { Card.new(5, 3) }
-  let(:same_card) { Card.new(5, 3) }
-  let(:other_card) { Card.new(6, 3) }
+  let(:equal_card) { Card.new(5, 3) }
+  let(:greater_card) { Card.new(6, 3) }
 
-  describe "#rank" do
-    it "returns the correct rank" do
+  describe "#new" do
+    it "sets the correct rank" do
       expect(card.rank).to eq(5)
     end
-  end
 
-  describe "#suit" do
-    it "returns the correct suit" do
+    it "sets the correct suit" do
       expect(card.suit).to eq(3)
     end
   end
 
-  describe "#==" do
-    it "returns true if two cards are equal" do
-      expect(card == same_card).to be true
+  describe "#<=>" do
+    it "returns -1 if first card is less than second" do
+      expect(card <=> greater_card).to eq(-1)
     end
   end
 
-  describe "#==" do
-    it "returns false if two cards are different" do
-      expect(card == other_card).to be false
+  describe "#<=>" do
+    it "returns 1 if first card is greater than second" do
+      expect(greater_card <=> card).to eq(1)
+    end
+  end
+
+  describe "#<=>" do
+    it "returns 0 if two cards are equal" do
+      expect(card <=> equal_card).to eq(0)
     end
   end
 
