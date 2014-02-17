@@ -21,6 +21,6 @@ class Dealer
   def deal_to_board(cards_count)
     @deck.pop(1)
     cards = deck.take_cards(cards_count)
-    table.board.concat(cards)
+    board.concat(cards)
   end
 end
