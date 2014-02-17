@@ -1,19 +1,17 @@
 require_relative "table.rb"
 
 class Dealer
-  attr_accessor :deck, :board, :players
+  attr_accessor :table
 
   def initialize(table)
-    @deck = table.deck.shuffle
-    @board = table.board
-    @players = table.players
+    @table = table
   end
 
   def deal_to_players
     2.times do
-      @players.foreach do |player|
+      @table.players.foreach do |player|
         cards = @deck.take_cards(1)
-        player.pocket.concat(cards)
+        player.add_cards_to_pocket(cards)
       end
     end
   end
@@ -21,6 +19,6 @@ class Dealer
   def deal_to_board(cards_count)
     @deck.pop(1)
     cards = deck.take_cards(cards_count)
-    board.concat(cards)
+    @table.add_cards_to_board(cards)
   end
 end
