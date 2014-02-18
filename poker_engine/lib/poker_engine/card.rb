@@ -1,8 +1,8 @@
-require_relative "enum.rb"
-
 class Card
-  RANKS = Enum.new("Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace")
-  SUITS = Enum.new("Clubs", "Diamonds", "Hearts", "Spades")
+  RANKS = { 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6", 7 => "7", 8 => "8",
+            9 => "9", 10 => "10", 11 => "J", 12 => "Q", 13 => "K", 14 => "A"}
+  SUITS = { 1 => "Clubs", 2 => "Diamonds", 3 => "Hearts", 4 => "Spades"}
+
 
   attr_reader :rank, :suit
 
@@ -15,9 +15,6 @@ class Card
   end
 
   def to_s
-    "#{RANKS[@rank]}, #{SUITS[@suit]}"
+    "#{RANKS[@rank]} of #{SUITS[@suit]}"
   end
 end
-
-card = Card.new(:Five, "Clubs")
-puts :baba

@@ -3,6 +3,5 @@ class Bet
 
   def initialize(bet_type)
     @bet_type = bet_type
-    @next_required = 
   end
 end
