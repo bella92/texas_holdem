@@ -8,9 +8,9 @@ class Dealer
     @table = table
   end
 
-  def deal_to_players
+  def deal_preflop(players)
     2.times do
-      @table.players.each do |player|
+      players.each do |player|
         cards = @deck.take_cards(1)
         player.add_cards_to_pocket(cards)
       end
