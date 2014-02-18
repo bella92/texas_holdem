@@ -1,9 +1,9 @@
-require 'spec_helper'
- 
+require_relative '../../lib/poker_engine.rb'
+
 describe Card do
   let(:card) { Card.new(5, 3) }
   let(:equal_card) { Card.new(5, 3) }
-  let(:greater_card) { Card.new(6, 3) }
+  let(:greater_card) { Card.new(5, 6) }
 
   describe "#new" do
     it "sets the correct rank" do
@@ -35,7 +35,7 @@ describe Card do
 
   describe "#to_s" do
     it "returns the correct string" do
-      expect(card.to_s).to eq("5, Hearts")
+      expect(card.to_s).to eq("5 of Hearts")
     end
   end
 end

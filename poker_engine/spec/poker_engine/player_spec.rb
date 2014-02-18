@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../../lib/poker_engine.rb'
  
 describe Player do
   let(:player) { Player.new("My player") }
