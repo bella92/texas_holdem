@@ -1,4 +1,4 @@
-require_relative "table.rb"
+require_relative "deck.rb"
 
 class Dealer
   attr_reader :deck, :table
@@ -10,7 +10,7 @@ class Dealer
 
   def deal_to_players
     2.times do
-      @table.players.foreach do |player|
+      @table.players.each do |player|
         cards = @deck.take_cards(1)
         player.add_cards_to_pocket(cards)
       end

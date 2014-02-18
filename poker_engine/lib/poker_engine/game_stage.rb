@@ -1,0 +1,6 @@
+module GameStage
+  #CLUBS, DIAMONDS, HEARTS, SPADES = 1, 2, 3, 4
+  #JACK, QUEEN, KING, ACE = 11, 12, 13, 14
+
+  PREFLOP, FLOP, TURN, RIVER, SHOWDOWN = 1, 2, 3, 4, 5
+end
