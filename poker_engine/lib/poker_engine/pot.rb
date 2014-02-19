@@ -1,4 +1,6 @@
 class Pot
+  attr_reader :pot, :all_in_cap
+
   def initialize
     @pot = Hash.new { 0 }
     @all_in_cap = 0
@@ -10,20 +12,16 @@ class Pot
     overage unless @all_in_cap.zero?
   end
 
-  def player_betted?(player)
-    @pot[player]
-  end
-
   def players_betted_cap?
-    @pot.values.all? { |bet| bet == @all_in_cap } && !@all_in_cap.zero?
+    @pot.values.all? { |bet| bet == @all_in_cap } and !@all_in_cap.zero?
   end
 
   def players_betted_same?
     @pot.values.uniq.size == 1
   end
 
-  def highest_bet
-    @pot.values.max
+  def player_called?(player)
+    @all_in_cap.zero? or @pot[player] == @pot.values.max
   end
 
   def amount
