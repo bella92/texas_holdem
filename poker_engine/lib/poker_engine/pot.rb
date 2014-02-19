@@ -1,6 +1,4 @@
 class Pot
-  attr_reader :pot
-
   def initialize
     @pot = Hash.new { 0 }
     @all_in_cap = 0
@@ -10,6 +8,10 @@ class Pot
     @pot[player] += amount
     @all_in_cap = @pot[player] if player.all_in? and @all_in_cap.zero?
     overage unless @all_in_cap.zero?
+  end
+
+  def player_betted?(player)
+    @pot[player]
   end
 
   def players_betted_cap?
@@ -25,11 +27,7 @@ class Pot
   end
 
   def amount
-    @pot.inject{|sum, bet| sum + bet }
-  end
-
-  def empty
-    @pot = {}
+    @pot.reduce(:+)
   end
 
   private
@@ -41,3 +39,4 @@ class Pot
       overage
     end
   end
+end
