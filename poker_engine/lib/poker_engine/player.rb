@@ -1,7 +1,8 @@
 class Player
-  attr_reader :name, :pocket, :bankroll
+  attr_reader :name, :pocket, :bankroll, :is_all_in
 
-  def initialize(name)
+  def initialize(name, is_all_in)
+    @is_all_in = is_all_in
     @name = name
     @pocket = []
     @bankroll = 1000
@@ -21,5 +22,11 @@ class Player
 
   def decrease_bankroll(amount)
     @bankroll -= amount
+  end
+
+
+  #for tests
+  def all_in?
+    @is_all_in
   end
 end

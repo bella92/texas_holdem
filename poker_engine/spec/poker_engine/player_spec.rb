@@ -1,7 +1,7 @@
 require_relative '../../lib/poker_engine.rb'
  
 describe Player do
-  let(:player) { Player.new("My player") }
+  let(:player) { Player.new("My player", true) }
   let(:first_card) { Card.new(10, 4) }
   let(:second_card) { Card.new(13, 2) }
 
@@ -45,6 +45,12 @@ describe Player do
     it "decreases the bankroll" do
       player.decrease_bankroll(500)
       expect(player.bankroll).to eq(500)
+    end
+  end
+
+  describe "#all_in?" do
+    it "returns if player is all-in" do
+      expect(player.all_in?).to be_true
     end
   end
 end
