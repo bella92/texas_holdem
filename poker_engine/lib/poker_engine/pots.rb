@@ -14,12 +14,16 @@ class Pots
     @pots.reduce { |sum, pot| sum + pot.amount } <= 0
   end
         
-  def add_chips(player, amount)
-    last_pot = @pots.select { |pot| pot.player_called?(player) }.size - 1
-    pot_surplus = @pots[last_pot].add_bet(player, amount)
-    if pot_surplus.size > 0
-      if last_pot
-        
-      end
-    end
+  def add_bet(player, amount)
+    index_surpassed = @pots.first_index { |pot| pot.player_called?(player) }
+    surplus = @pots[index_surpassed].add_bet(player, amount)
+    add_side_pot(surplus)
   end
+  
+  private
+
+  def add_side_pot(pot_surplus)
+    @pots << Pot.new if index_surpassed == @pots.size - 1
+    surplus.keys.each { |player| pots[index_surpassed + 1].add_bet(player, surplus[player]) }
+  end
+end
