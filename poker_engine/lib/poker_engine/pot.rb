@@ -32,7 +32,7 @@ class Pot
 
   def overage
     @pot.keys.select { |player| player > @all_in_cap }.inject({}) do |overage, player|
-      overage[player] = @pot
+      overage[player] = @pot[player]
       @pot[player] = @all_in_cap
       overage
     end
