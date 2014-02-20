@@ -34,6 +34,7 @@ class Combination
   end
 
   def find_combination
+    !array.index(3).nil? and !array.index(2).nil?
     combination = if !(map_suit_count =~ /[^0]{5}/).nil? and straight?
                     COMBINATIONS[8] #StraightFlush
   end
