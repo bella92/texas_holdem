@@ -1,38 +1,40 @@
 require_relative "card.rb"
 
 class Hand
-  HANDS = { 0 => "HighCard", 1 => "Pair", 2 => "TwoPairs", 3 => "ThreeOfaKind",
-            4 => "Straight", 5 => "Flush", 6 => "FullHouse",
-            7 => "FourOfaKind", 8 => "StraightFlush", 9 => "RoyalFlush" }
+  HANDS = { "HighCard" => 1, "Pair" => 2, "TwoPairs" => 3, "ThreeOfaKind" => 4, "Straight" => 5, "Flush" => 6,
+            "FullHouse" => 7, "FourOfaKind" => 8, "StraightFlush" => 9, "RoyalFlush" => 10 }
 
   attr_reader :cards
 
   def initialize(cards)
     @cards = cards
+    @hand = 1
+    @high_card = 2
+    @kickers = []
   end
 
   def find_best_hand
-    hand = if Hand.new(group_by_suit[0].last).straight? == 0
-             HANDS[9]
-           elsif Hand.new(group_by_suit[0].last).straight?
-             HANDS[8]
-           elsif rank_count.index('4')
-             HANDS[7]
-           elsif first = rank_count.index('3') and (rank_count.index('3', first + 1) or rank_count.index('2'))
-             HANDS[6]
-           elsif suit_count.index(/[567]/)
-             HANDS[5]
-           elsif straight?
-             HANDS[4]
-           elsif rank_count.index('3')
-             HANDS[3]
-           elsif first = rank_count.index('2') and rank_count.index('2', first + 1)
-             HANDS[2]
-           elsif rank_count.index('2')
-             HANDS[1]
-           else
-             HANDS[0]
-           end       
+    @hand = if @high_card = Hand.new(group_by_suit[0].last).straight? == 0
+              HANDS["RoyalFlush"]
+            elsif @high_card = Hand.new(group_by_suit[0].last).straight?
+              HANDS["StraightFlush"]
+            elsif @high_card = rank_count.index('4')
+              HANDS["FourOfaKind"]
+            elsif @high_card = rank_count.index('3') and (rank_count.index('3', @high_card + 1) or rank_count.index('2'))
+              HANDS["FullHouse"]
+            elsif @high_card = suit_count.index(/[567]/)
+              HANDS["Flush"]
+            elsif @high_card = straight?
+              HANDS["Straight"]
+            elsif @high_card = rank_count.index('3')
+              HANDS["ThreeOfaKind"]
+            elsif @high_card = rank_count.index('2') and rank_count.index('2', first + 1)
+              HANDS["TwoPairs"]
+            elsif @high_card = rank_count.index('2')
+              HANDS["Pair"]
+            elsif @high_card = rank_count.index('1')
+              HANDS["HighCard"]
+            end       
   end
 
   # private
@@ -41,16 +43,11 @@ class Hand
     @cards.group_by { |card| card.suit }.sort.reverse
   end
 
-  # def group_by_rank
-  #   @cards.group_by { |card| card.rank }.sort.reverse
-  # end
-
   def suit_count
     (1..4).map { |suit| @cards.count { |card| card.suit == suit } }.reverse.join
   end
 
   def rank_count
-    #p @cards
     (2..14).map { |rank| @cards.count { |card| card.rank == rank } }.reverse.join
   end
 
