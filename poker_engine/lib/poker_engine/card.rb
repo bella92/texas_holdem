@@ -3,7 +3,6 @@ class Card
             9 => "9", 10 => "10", 11 => "J", 12 => "Q", 13 => "K", 14 => "A"}
   SUITS = { 1 => "Clubs", 2 => "Diamonds", 3 => "Hearts", 4 => "Spades"}
 
-
   attr_reader :rank, :suit
 
   def initialize(rank, suit)
