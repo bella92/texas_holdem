@@ -12,21 +12,31 @@ class Combination
   end
     
   def group_by_suit
-    @hand.group_by { |card| card.suit }.sort_by { |_, cards| -cards.count }
+    @hand.group_by { |card| card.suit } #.sort_by { |_, cards| -cards.count }
   end
 
   def group_by_rank
     @hand.group_by { |card| card.rank } #.sort_by { |_, cards| -cards.count }
   end
 
-  def straight?
-    (2..14).map { |rank| group_by_rank.key?(rank) ?  }
+  def map_suit_count
+    (1..4).map { |suit| group_by_suit.key?(suit) ? group_by_suit[suit].count : 0 }.join
   end
 
-  # def find_combination
-  #   combination = if sort_by_suit.at(0).at(1) >= 5 and 
-  #                   COMBINATIONS[9]
-  # end
+  def map_rank_count
+    (2..14).map { |rank| group_by_rank.key?(rank) ? group_by_rank[rank].count : 0 }.join
+  end
+
+  def straight?
+    rank_count = map_rank_count
+    rank_count.insert(0, rank_count[-1, 1])
+    !(rank_count =~ /[^0]{5}/).nil?
+  end
+
+  def find_combination
+    combination = if !(map_suit_count =~ /[^0]{5}/).nil? and straight?
+                    COMBINATIONS[8] #StraightFlush
+  end
 end
 
 combination = Combination.new([Card.new(4, 4),
