@@ -1,9 +1,9 @@
 require_relative '../../lib/poker_engine.rb'
  
-describe Player do
+describe Pot do
   let(:pot) { Pot.new }
-  let(:all_in_player) { Player.new("My player", true) }
-  let(:not_all_in_player) { Player.new("My player", false) }
+  let(:all_in_player) { Player.new("All-in player", true) }
+  let(:not_all_in_player) { Player.new("Not all-in player", false) }
 
   describe "#new" do
     it "sets a pot with zero bet for all players" do
@@ -31,7 +31,7 @@ describe Player do
       expect(pot.all_in_cap).to eq(500)
     end
 
-    it "returns surplus if all_in cap is not zero" do
+    it "returns correct surplus if all_in cap is not zero" do
       pot.add_bet(all_in_player, 500)
       surplus = pot.add_bet(not_all_in_player, 700)
       expect(surplus[not_all_in_player]).to eq(200)

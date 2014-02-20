@@ -9,7 +9,7 @@ class Pot
   def add_bet(player, amount)
     @pot[player] += amount
     @all_in_cap = amount if player.all_in? and @all_in_cap.zero?
-    surplus unless @all_in_cap.zero?
+    @all_in_cap.zero? ? {} : surplus
   end
 
   def players_called_cap?
@@ -23,22 +23,29 @@ class Pot
   #end
 
   def player_called?(player)
-    @all_in_cap.zero? or @pot[player] == @pot.values.max
+    @all_in_cap.zero? or @pot[player] == @pot.values.max or player.all_in?
   end
 
   def amount
     @pot.values.reduce(:+)
   end
 
+  def clear
+    @pot.clear
+  end
+
   private
 
   def surplus
     surplus = @pot.select { |player, bet| bet > @all_in_cap }
-    update_pot(surplus)
+    update(surplus)
     surplus
   end
   
-  def update_pot(surplus)
-    surplus.keys.each { |player| @pot[player] = @all_in_cap }
+  def update(surplus)
+    surplus.keys.each do |player|
+      surplus[player] = @pot[player] - @all_in_cap
+      @pot[player] = @all_in_cap
+    end
   end
 end
