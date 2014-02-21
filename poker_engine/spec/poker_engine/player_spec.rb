@@ -17,6 +17,14 @@ describe Player do
     it "sets the default bankroll" do
       expect(player.bankroll).to eq(1000)
     end
+
+    it "sets the default all_in" do
+      expect(player.all_in?).to be_true
+    end
+
+    it "sets the default buck" do
+      expect(player.buck?).to be_true
+    end
   end
 
   describe "#add_cards_to_pocket" do
@@ -50,7 +58,15 @@ describe Player do
 
   describe "#all_in?" do
     it "returns if player is all-in" do
+      player.all_in(true)
       expect(player.all_in?).to be_true
+    end
+  end
+
+  describe "#buck?" do
+    it "returns if player has buck" do
+      player.buck(true)
+      expect(player.buck?).to be_true
     end
   end
 end

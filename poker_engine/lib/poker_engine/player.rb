@@ -1,11 +1,14 @@
 class Player
-  attr_reader :name, :pocket, :bankroll, :is_all_in
+  attr_reader :name, :pocket, :bankroll
 
-  def initialize(name, is_all_in)
-    @is_all_in = is_all_in
+  attr_writer :all_in, :buck
+
+  def initialize(name)
     @name = name
     @pocket = []
     @bankroll = 1000
+    @all_in = false
+    @buck = false
   end
 
   def add_cards_to_pocket(cards)
@@ -24,9 +27,11 @@ class Player
     @bankroll -= amount
   end
 
-
-  #for tests
   def all_in?
-    @is_all_in
+    @all_in
+  end
+
+  def buck?
+    @buck
   end
 end
