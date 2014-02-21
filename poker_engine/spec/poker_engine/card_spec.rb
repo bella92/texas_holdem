@@ -19,15 +19,11 @@ describe Card do
     it "returns -1 if first card is less than second" do
       expect(card <=> greater_card).to eq(-1)
     end
-  end
 
-  describe "#<=>" do
     it "returns 1 if first card is greater than second" do
       expect(greater_card <=> card).to eq(1)
     end
-  end
-
-  describe "#<=>" do
+    
     it "returns 0 if two cards are equal" do
       expect(card <=> equal_card).to eq(0)
     end
