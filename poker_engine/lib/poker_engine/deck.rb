@@ -8,7 +8,7 @@ class Deck
   end
 
   def shuffle
-    @cards.shuffle!
+    @cards = @cards.shuffle
   end
   
   def take_cards(count, skip: 0)

@@ -3,8 +3,12 @@ require_relative "deck.rb"
 class Dealer
   attr_reader :deck
 
-  def initialize()
+  def initialize
     @deck = Deck.new
+  end
+
+  def shuffle_deck
+    2.times { @deck.shuffle }
   end
 
   def deal_preflop(table)

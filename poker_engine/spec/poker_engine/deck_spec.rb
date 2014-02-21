@@ -17,9 +17,10 @@ describe Deck do
   end
 
   describe "#shuffle" do
-    it "sets shuffled cards" do
-      cards = deck.cards
-      expect(deck.cards.sort).to_not equal(cards)
+    it "shuffles cards" do
+      ordered_cards = deck.cards
+      deck.shuffle
+      expect(deck.cards).to_not eq(ordered_cards)
     end
   end
 
