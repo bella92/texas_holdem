@@ -3,7 +3,6 @@ require_relative '../../lib/poker_engine.rb'
 describe Deck do
   let(:deck) { Deck.new }
 
-  #TODO: fix this
   describe "#new" do
     it "sets the correct cards" do
       cards = ["2 of Clubs", "2 of Diamonds", "2 of Hearts", "2 of Spades", "3 of Clubs", "3 of Diamonds", "3 of Hearts", "3 of Spades",
@@ -15,7 +14,9 @@ describe Deck do
                "A of Clubs", "A of Diamonds", "A of Hearts", "A of Spades"]
       expect(deck.cards.map { |card| card.to_s }).to match_array(cards)
     end
+  end
 
+  describe "#shuffle" do
     it "sets shuffled cards" do
       cards = deck.cards
       expect(deck.cards.sort).to_not equal(cards)
