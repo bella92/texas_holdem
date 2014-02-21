@@ -14,6 +14,6 @@ class Card
   end
 
   def to_s
-    "#{RANKS[@rank]} of #{SUITS[@suit]}"
+    "#{ RANKS[@rank] } of #{ SUITS[@suit] }"
   end
 end
