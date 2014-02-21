@@ -1,10 +1,14 @@
 require_relative "card.rb"
 
 class Deck
-  attr_accessor :cards
+  attr_reader :cards
 
   def initialize
-    @cards = (2..14).flat_map { |rank| (1..4).map { |suit| Card.new(rank, suit) } }.shuffle!
+    @cards = (2..14).flat_map { |rank| (1..4).map { |suit| Card.new(rank, suit) } }
+  end
+
+  def shuffle
+    @cards.shuffle!
   end
   
   def take_cards(count, skip: 0)
