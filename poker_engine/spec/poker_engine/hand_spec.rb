@@ -1,9 +1,6 @@
 require_relative '../../lib/poker_engine.rb'
  
 describe Hand do
-  #let(:hand) { Hand.new(pocket, board) }
-  #let(:all_in_player) { Player.new("All-in player", true) }
-  #let(:not_all_in_player) { Player.new("Not all-in player", false) }
 
   describe "#new" do
     it "sets correct cards" do
@@ -18,40 +15,31 @@ describe Hand do
       cards = [Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(13, 3), Card.new(14, 3), Card.new(2, 3), Card.new(13, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(10)
-      p hand.high_card
-      p hand.find_kickers
     end
 
     it "finds straight flush" do
       cards = [Card.new(9, 3), Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(9)
-      p hand.high_card
-      p hand.find_kickers
     end
 
     it "finds four of a kind" do
       cards = [Card.new(9, 1), Card.new(9, 2), Card.new(9, 3), Card.new(9, 4), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(8)
-      p hand.high_card
-      p hand.find_kickers
+      expect(hand.find_kickers). to eq([0])
     end
 
     it "finds full house" do
       cards = [Card.new(9, 1), Card.new(9, 2), Card.new(13, 3), Card.new(13, 4), Card.new(13, 2), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(7)
-      p hand.high_card
-      p hand.find_kickers
     end
 
     it "finds flush" do
       cards = [Card.new(9, 3), Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(3, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(6)
-      p hand.high_card
-      p hand.find_kickers
     end
 
     it "finds straight" do
@@ -64,25 +52,79 @@ describe Hand do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(9, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(4)
+      expect(hand.find_kickers). to eq([0, 1])
     end
 
     it "finds two pairs" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(3)
+      expect(hand.find_kickers). to eq([0])
     end
 
     it "finds pair" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(2)
+      expect(hand.find_kickers). to eq([0, 1, 2])
     end
 
     it "finds high card" do
       cards = [Card.new(8, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
       expect(hand.find_best_hand).to eq(1)
+      expect(hand.find_kickers). to eq([1, 2, 5, 6])
     end
+  end
+
+  describe "#find_kickers" do
+    # it "finds four of a kind kickers" do
+    #   cards = [Card.new(9, 1), Card.new(9, 2), Card.new(9, 3), Card.new(9, 4), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_kickers).to eq([13])
+    # end
+
+    # it "finds full house kickers" do
+    #   cards = [Card.new(9, 1), Card.new(9, 2), Card.new(13, 3), Card.new(13, 4), Card.new(13, 2), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(7)
+    # end
+
+    # it "finds flush kickers" do
+    #   cards = [Card.new(9, 3), Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(3, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(6)
+    # end
+
+    # it "finds straight kickers" do
+    #   cards = [Card.new(14, 3), Card.new(2, 3), Card.new(3, 1), Card.new(4, 2), Card.new(5, 3), Card.new(11, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(5)
+    # end
+
+    # it "finds three of a kind kickers" do
+    #   cards = [Card.new(9, 3), Card.new(9, 4), Card.new(9, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(4)
+    # end
+
+    # it "finds two pairs kickers" do
+    #   cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(3)
+    # end
+
+    # it "finds pair kickers" do
+    #   cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(2)
+    # end
+
+    # it "finds high card kickers" do
+    #   cards = [Card.new(8, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
+    #   hand = Hand.new(cards)
+    #   expect(hand.find_best_hand).to eq(1)
+    # end
   end
 
   describe "#suit_count" do

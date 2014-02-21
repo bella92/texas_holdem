@@ -4,46 +4,52 @@ class Hand
   HANDS = { "HighCard" => 1, "Pair" => 2, "TwoPairs" => 3, "ThreeOfaKind" => 4, "Straight" => 5, "Flush" => 6,
             "FullHouse" => 7, "FourOfaKind" => 8, "StraightFlush" => 9, "RoyalFlush" => 10 }
 
-  attr_reader :cards, :hand, :high_card, :kickers
+  attr_reader :cards, :hand, :high_cards, :kickers
 
   def initialize(cards)
     @cards = cards
     @hand = 1
-    @high_card = 2
+    @high_cards = []
     @kickers = []
   end
 
   def find_best_hand
-    @hand = if (@high_card = Hand.new(group_by_suit[0].last).straight?) == 0
+    @hand = if (@high_cards[0] = Hand.new(group_by_suit[0].last).straight?) == 0
               HANDS["RoyalFlush"]
-            elsif @high_card = Hand.new(group_by_suit[0].last).straight?
+            elsif @high_cards[0] = Hand.new(group_by_suit[0].last).straight?
               HANDS["StraightFlush"]
-            elsif @high_card = rank_count.index('4')
+            elsif @high_cards[0] = rank_count.index('4')
               HANDS["FourOfaKind"]
-            elsif (@high_card = rank_count.index('3')) and (rank_count.index('3', @high_card + 1) or rank_count.index('2'))
+            elsif (@high_cards[0] = rank_count.index('3')) and (@high_cards[1] = rank_count.index('3', @high_cards[0] + 1) or rank_count.index('2'))
               HANDS["FullHouse"]
-            elsif @high_card = suit_count.index(/[567]/)
+            elsif @high_cards[0] = suit_count.index(/[567]/)
               HANDS["Flush"]
-            elsif @high_card = straight?
+            elsif @high_cards[0] = straight?
               HANDS["Straight"]
-            elsif @high_card = rank_count.index('3')
+            elsif @high_cards[0] = rank_count.index('3')
               HANDS["ThreeOfaKind"]
-            elsif (@high_card = rank_count.index('2')) and rank_count.index('2', @high_card + 1)
+            elsif (@high_cards[0] = rank_count.index('2')) and @high_cards[1] = rank_count.index('2', @high_cards[0] + 1)
               HANDS["TwoPairs"]
-            elsif @high_card = rank_count.index('2')
+            elsif @high_cards[0] = rank_count.index('2')
               HANDS["Pair"]
-            elsif @high_card = rank_count.index('1')
+            elsif @high_cards[0] = rank_count.index('1')
               HANDS["HighCard"]
-            end       
+            end
   end
 
   def find_kickers
-    kickers = rank_count
-    hand_cards_count = kickers[@high_card].to_i
-    p "count: " << hand_cards_count.to_s
-    kickers[@high_card] = '0'
-    sum = 0
-    kickers.split('').map { |char| char.to_i }.take_while { |e| (sum += e) <= 5 - hand_cards_count }
+    other_cards = rank_count
+    other_cards[@high_cards[0]] = '0'
+    @kickers = case @hand
+               when 8, 3
+                 [] << other_cards.index('1')
+               when 4
+                 (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(2)
+               when 2
+                 (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(3)
+               else
+                 (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(4)
+               end
   end
 
   # private
