@@ -1,7 +1,7 @@
 require_relative '../../lib/poker_engine.rb'
  
 describe Player do
-  let(:player) { Player.new("My player", true) }
+  let(:player) { Player.new("My player") }
   let(:first_card) { Card.new(10, 4) }
   let(:second_card) { Card.new(13, 2) }
 
@@ -19,11 +19,11 @@ describe Player do
     end
 
     it "sets the default all_in" do
-      expect(player.all_in?).to be_true
+      expect(player.all_in?).to be_false
     end
 
     it "sets the default buck" do
-      expect(player.buck?).to be_true
+      expect(player.buck?).to be_false
     end
   end
 
@@ -58,14 +58,14 @@ describe Player do
 
   describe "#all_in?" do
     it "returns if player is all-in" do
-      player.all_in(true)
+      player.all_in = true
       expect(player.all_in?).to be_true
     end
   end
 
   describe "#buck?" do
     it "returns if player has buck" do
-      player.buck(true)
+      player.buck = true
       expect(player.buck?).to be_true
     end
   end
