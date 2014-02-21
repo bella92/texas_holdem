@@ -35,6 +35,7 @@ class Hand
             elsif @high_cards[0] = rank_count.index('1')
               HANDS["HighCard"]
             end
+    @high_cards.map { |high_card| 14 - high_card }
   end
 
   def find_kickers
@@ -50,6 +51,15 @@ class Hand
                else
                  (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(4)
                end
+    @kickers.map! { |kicker| 14 - kicker }
+  end
+
+  def <=>(other)
+    if @hand == other.hand
+      @high_cards != other.high_cards ? @high_cards <=> other.high_cards : @kickers <=> other.kickers
+    else
+      @hand <=> other.hand
+    end
   end
 
   # private
