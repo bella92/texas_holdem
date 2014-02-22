@@ -21,8 +21,12 @@ end
 
 
 module Game
-  Fold, Check, Bet, Call, Raise = 1, 2, 3, 4, 5
-  BigBlind = 20;
+  Fold = 1
+  Check = 2
+  Bet = 3
+  Call = 4
+  Raise = 5
+  BigBlind = 20
 
   def set_players(players)
     players.each { |player| @table.add_player player }
@@ -40,12 +44,14 @@ module Game
  
   def betting_round
     all_players_called = false
-    until all_players_called
+    one_player_left = @table.players.one? { |player| player.betting_status != Fold }
+    until (all_players_called or one_player_left)
       @table.players.select { |player| player.betting_status != Fold }.each do |player|
         before_betting(player)
         after_betting(player)
       end
       all_players_called = @table.pot.all_players_called?
+      one_player_left = @table.players.one? { |player| player.betting_status != Fold }
     end
     @table.pot.all_players_called?
   end
