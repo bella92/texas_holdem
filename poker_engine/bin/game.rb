@@ -44,13 +44,15 @@ module Game
  
   def betting_round
     all_players_called = false
+    all_players_checked = false
     one_player_left = @table.players.one? { |player| player.betting_status != Fold }
-    until (all_players_called or one_player_left)
+    until all_players_called or one_player_left or all_players_checked
       @table.players.select { |player| player.betting_status != Fold }.each do |player|
         before_betting(player)
         after_betting(player)
       end
       all_players_called = @table.pot.all_players_called?
+      all_players_checked = @table.players.all? { |player| player.betting_status == Check }
       one_player_left = @table.players.one? { |player| player.betting_status != Fold }
     end
     @table.pot.all_players_called?
