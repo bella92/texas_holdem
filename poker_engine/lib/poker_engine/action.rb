@@ -11,7 +11,7 @@ class Action
   end
 
   def fold(player)
-    @players_betting.pop(player)
+    @players_betting.delete(player)
     player.betting_status = ACTIONS[Fold]
   end
 

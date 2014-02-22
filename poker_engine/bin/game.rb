@@ -158,6 +158,7 @@ class ConsoleClient
                when "b"  then Bet
                when "c"  then Call
                when "ch" then Check
+               when "f"  then Fold
                else
                  puts "enter action again:"
                  gets.chomp
