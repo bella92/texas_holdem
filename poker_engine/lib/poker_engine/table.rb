@@ -1,10 +1,13 @@
+require_relative "pots.rb"
+
 class Table
   attr_reader :players, :board, :pot
 
   def initialize
     @players = []
     @board = []
-    @pot = 0
+    #@pots = Pots.new
+    @pot = Pot.new
   end
 
   def add_player(player)
@@ -15,19 +18,15 @@ class Table
     @players.delete(player)
   end
 
+  def rotate_players
+    @players = @players.rotate
+  end
+
   def add_cards_to_board(cards)
     @board.concat(cards)
   end
 
   def clear_board
     @board = []
-  end
-
-  def increase_pot(amount)
-    @pot += amount
-  end
-
-  def clear_pot
-    @pot = 0
   end
 end

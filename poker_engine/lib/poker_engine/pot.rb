@@ -22,6 +22,11 @@ class Pot
   #  @pot.values.uniq.size == 1
   #end
 
+  #not tested
+  def max_bet
+    @pot.values.max
+  end
+
   def player_called?(player)
     @all_in_cap.zero? or @pot[player] == @pot.values.max or player.all_in?
   end

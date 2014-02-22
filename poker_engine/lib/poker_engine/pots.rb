@@ -1,3 +1,5 @@
+require_relative "pot.rb"
+
 class Pots
   attr_reader :pots
 
@@ -17,6 +19,11 @@ class Pots
       pot.clear
     end
     #@pots.reduce { |sum, pot| sum + pot.amount } <= 0
+  end
+
+  #not tested
+  def max_bet
+    @pots.reduce { |sum, pot| pot.max_bet}
   end
 
   private

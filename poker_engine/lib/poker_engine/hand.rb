@@ -1,8 +1,11 @@
 require_relative "card.rb"
 
 class Hand
-  HANDS = { "HighCard" => 1, "Pair" => 2, "TwoPairs" => 3, "ThreeOfaKind" => 4, "Straight" => 5, "Flush" => 6,
+   { "HighCard" => 1, "Pair" => 2, "TwoPairs" => 3, "ThreeOfaKind" => 4, "Straight" => 5, "Flush" => 6,
             "FullHouse" => 7, "FourOfaKind" => 8, "StraightFlush" => 9, "RoyalFlush" => 10 }
+
+  HighCard, Pair, TwoPairs, ThreeOfaKind, Straight, Flush
+  FullHouse, FourOfaKind, StraightFlush, RoyalFlush = 1.upto(10)
 
   attr_reader :cards, :hand, :high_cards, :kickers
 
@@ -15,25 +18,25 @@ class Hand
 
   def find_best_hand
     @hand = if (@high_cards[0] = Hand.new(group_by_suit[0].last).straight?) == 0
-              HANDS["RoyalFlush"]
+              RoyalFlush
             elsif @high_cards[0] = Hand.new(group_by_suit[0].last).straight?
-              HANDS["StraightFlush"]
+              StraightFlush
             elsif @high_cards[0] = rank_count.index('4')
-              HANDS["FourOfaKind"]
+              FourOfaKind
             elsif (@high_cards[0] = rank_count.index('3')) and (@high_cards[1] = rank_count.index('3', @high_cards[0] + 1) or rank_count.index('2'))
-              HANDS["FullHouse"]
+              FullHouse
             elsif @high_cards[0] = suit_count.index(/[567]/)
-              HANDS["Flush"]
+              Flush
             elsif @high_cards[0] = straight?
-              HANDS["Straight"]
+              Straight
             elsif @high_cards[0] = rank_count.index('3')
-              HANDS["ThreeOfaKind"]
+              ThreeOfaKind
             elsif (@high_cards[0] = rank_count.index('2')) and @high_cards[1] = rank_count.index('2', @high_cards[0] + 1)
-              HANDS["TwoPairs"]
+              TwoPairs
             elsif @high_cards[0] = rank_count.index('2')
-              HANDS["Pair"]
+              Pair
             elsif @high_cards[0] = rank_count.index('1')
-              HANDS["HighCard"]
+              HighCard
             end
   end
 
@@ -41,11 +44,11 @@ class Hand
     other_cards = rank_count
     other_cards[@high_cards[0]] = '0'
     @kickers = case @hand
-               when 8, 3
+               when FourOfaKind, TwoPairs
                  [] << other_cards.index('1')
-               when 4
+               when ThreeOfaKind
                  (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(2)
-               when 2
+               when Pair
                  (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(3)
                else
                  (0...other_cards.length).find_all { |c| other_cards[c, 1] == '1' }.take(4)

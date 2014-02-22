@@ -14,65 +14,65 @@ describe Hand do
     it "finds royal flush" do
       cards = [Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(13, 3), Card.new(14, 3), Card.new(2, 3), Card.new(13, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(10)
+      expect(hand.find_best_hand).to eq(RoyalFlush)
     end
 
     it "finds straight flush" do
       cards = [Card.new(9, 3), Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(9)
+      expect(hand.find_best_hand).to eq(StraightFlush)
     end
 
     it "finds four of a kind" do
       cards = [Card.new(9, 1), Card.new(9, 2), Card.new(9, 3), Card.new(9, 4), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(8)
+      expect(hand.find_best_hand).to eq(FourOfaKind)
       expect(hand.find_kickers). to eq([14])
     end
 
     it "finds full house" do
       cards = [Card.new(9, 1), Card.new(9, 2), Card.new(13, 3), Card.new(13, 4), Card.new(13, 2), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(7)
+      expect(hand.find_best_hand).to eq(FullHouse)
     end
 
     it "finds flush" do
       cards = [Card.new(9, 3), Card.new(10, 3), Card.new(11, 3), Card.new(12, 3), Card.new(3, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(6)
+      expect(hand.find_best_hand).to eq(Flush)
     end
 
     it "finds straight" do
       cards = [Card.new(14, 3), Card.new(2, 3), Card.new(3, 1), Card.new(4, 2), Card.new(5, 3), Card.new(11, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(5)
+      expect(hand.find_best_hand).to eq(Straight)
     end
 
     it "finds three of a kind" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(9, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(4)
+      expect(hand.find_best_hand).to eq(ThreeOfaKind)
       expect(hand.find_kickers). to eq([14, 13])
     end
 
     it "finds two pairs" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(12, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(3)
+      expect(hand.find_best_hand).to eq(TwoPairs)
       expect(hand.find_kickers). to eq([14])
     end
 
     it "finds pair" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(2)
+      expect(hand.find_best_hand).to eq(Pair)
       expect(hand.find_kickers). to eq([14, 13, 12])
     end
 
     it "finds high card" do
       cards = [Card.new(8, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      expect(hand.find_best_hand).to eq(1)
+      expect(hand.find_best_hand).to eq(HighCard)
       expect(hand.find_kickers). to eq([13, 12, 9, 8])
     end
   end
@@ -104,9 +104,7 @@ describe Hand do
 
     it "compares equal hands" do
       cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
-      #greater_pair_cards = [Card.new(9, 3), Card.new(9, 4), Card.new(12, 1), Card.new(3, 2), Card.new(13, 3), Card.new(2, 3), Card.new(14, 1)]
       hand = Hand.new(cards)
-      #greater_pair_hand = Hand.new(greater_pair_cards)
       expect(hand <=> hand).to eq(0)
     end
   end
