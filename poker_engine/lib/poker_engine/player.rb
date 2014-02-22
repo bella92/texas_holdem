@@ -1,17 +1,18 @@
 class Player
-  Fold, Check, Bet, Call, Raise, AllIn = 1.upto(6)
-  None, Dealer, SmallBlind, BigBlind = 1.upto(4)
+  Fold, Check, Bet, Call, Raise = 1, 2, 3, 4, 5
 
   attr_reader :name, :pocket, :bankroll
 
-  attr_accessor :betting_status, :dealing_status
+  attr_writer :buck
+
+  attr_accessor :betting_status
 
   def initialize(name)
     @name = name
     @pocket = []
     @bankroll = 1000
+    @buck = false
     @betting_status = Check
-    @buck = None
   end
 
   def add_cards_to_pocket(cards)
@@ -28,5 +29,9 @@ class Player
 
   def decrease_bankroll(amount)
     @bankroll -= amount
+  end
+
+  def buck?
+    @buck
   end
 end

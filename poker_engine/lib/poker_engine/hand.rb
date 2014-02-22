@@ -1,11 +1,16 @@
 require_relative "card.rb"
 
 class Hand
-   { "HighCard" => 1, "Pair" => 2, "TwoPairs" => 3, "ThreeOfaKind" => 4, "Straight" => 5, "Flush" => 6,
-            "FullHouse" => 7, "FourOfaKind" => 8, "StraightFlush" => 9, "RoyalFlush" => 10 }
-
-  HighCard, Pair, TwoPairs, ThreeOfaKind, Straight, Flush
-  FullHouse, FourOfaKind, StraightFlush, RoyalFlush = 1.upto(10)
+  HighCard = 1
+  Pair = 2
+  TwoPairs = 3
+  ThreeOfaKind = 4
+  Straight = 5
+  Flush = 6
+  FullHouse = 7
+  FourOfaKind = 8
+  StraightFlush = 9
+  RoyalFlush = 10
 
   attr_reader :cards, :hand, :high_cards, :kickers
 

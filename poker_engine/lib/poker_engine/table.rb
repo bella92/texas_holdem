@@ -1,4 +1,4 @@
-require_relative "pots.rb"
+require_relative "pot.rb"
 
 class Table
   attr_reader :players, :board, :pot
@@ -6,7 +6,6 @@ class Table
   def initialize
     @players = []
     @board = []
-    #@pots = Pots.new
     @pot = Pot.new
   end
 

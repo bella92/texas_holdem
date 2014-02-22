@@ -16,7 +16,7 @@ describe Player do
     end
 
     it "sets the default pot" do
-      expect(table.pot).to eq(0)
+      expect(table.pot).to be_instance_of(Pot)
     end
   end
 
@@ -46,20 +46,6 @@ describe Player do
     it "clears the board" do
       table.clear_board
       expect(table.board).to be_empty
-    end
-  end
-
-  describe "#increase_pot" do
-    it "increases the pot" do
-      table.increase_pot(500)
-      expect(table.pot).to eq(500)
-    end
-  end
-
-  describe "#clear_pot" do
-    it "clears the pot" do
-      table.clear_pot
-      expect(table.pot).to eq(0)
     end
   end
 end

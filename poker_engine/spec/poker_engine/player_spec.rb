@@ -18,10 +18,6 @@ describe Player do
       expect(player.bankroll).to eq(1000)
     end
 
-    it "sets the default all_in" do
-      expect(player.all_in?).to be_false
-    end
-
     it "sets the default buck" do
       expect(player.buck?).to be_false
     end
@@ -53,13 +49,6 @@ describe Player do
     it "decreases the bankroll" do
       player.decrease_bankroll(500)
       expect(player.bankroll).to eq(500)
-    end
-  end
-
-  describe "#all_in?" do
-    it "returns if player is all-in" do
-      player.all_in = true
-      expect(player.all_in?).to be_true
     end
   end
 
